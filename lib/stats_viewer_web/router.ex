@@ -68,6 +68,13 @@ defmodule StatsViewerWeb.Router do
       on_mount: [{StatsViewerWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/plots", PlotLive.Index, :index
+      live "/plots/new", PlotLive.Index, :new
+      live "/plots/:id/edit", PlotLive.Index, :edit
+
+      live "/plots/:id", PlotLive.Show, :show
+      live "/plots/:id/show/edit", PlotLive.Show, :edit
     end
   end
 
