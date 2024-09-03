@@ -7,6 +7,7 @@ defmodule StatsViewer.Plots do
   alias StatsViewer.Repo
 
   alias StatsViewer.Plots.Plot
+  alias StatsViewer.Plots.CSVFile
 
   @doc """
   Returns the list of plots.
@@ -100,5 +101,99 @@ defmodule StatsViewer.Plots do
   """
   def change_plot(%Plot{} = plot, attrs \\ %{}) do
     Plot.changeset(plot, attrs)
+  end
+
+  @doc """
+  Returns the list of csv_files.
+
+  ## Examples
+
+      iex> list_csv_files()
+      [%CSVFile{}, ...]
+
+  """
+  def list_csv_files do
+    Repo.all(CSVFile)
+  end
+
+  @doc """
+  Gets a single csv_file.
+
+  Raises `Ecto.NoResultsError` if the Csv file does not exist.
+
+  ## Examples
+
+      iex> get_csv_file!(123)
+      %CSVFile{}
+
+      iex> get_csv_file!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_csv_file!(id), do: Repo.get!(CSVFile, id)
+
+  @doc """
+  Creates a csv_file.
+
+  ## Examples
+
+      iex> create_csv_file(%{field: value})
+      {:ok, %CSVFile{}}
+
+      iex> create_csv_file(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_csv_file(attrs \\ %{}) do
+    %CSVFile{}
+    |> CSVFile.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a csv_file.
+
+  ## Examples
+
+      iex> update_csv_file(csv_file, %{field: new_value})
+      {:ok, %CSVFile{}}
+
+      iex> update_csv_file(csv_file, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_csv_file(%CSVFile{} = csv_file, attrs) do
+    csv_file
+    |> CSVFile.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a csv_file.
+
+  ## Examples
+
+      iex> delete_csv_file(csv_file)
+      {:ok, %CSVFile{}}
+
+      iex> delete_csv_file(csv_file)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_csv_file(%CSVFile{} = csv_file) do
+    Repo.delete(csv_file)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking csv_file changes.
+
+  ## Examples
+
+      iex> change_csv_file(csv_file)
+      %Ecto.Changeset{data: %CSVFile{}}
+
+  """
+  def change_csv_file(%CSVFile{} = csv_file, attrs \\ %{}) do
+    CSVFile.changeset(csv_file, attrs)
   end
 end

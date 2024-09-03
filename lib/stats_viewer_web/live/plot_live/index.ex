@@ -6,7 +6,10 @@ defmodule StatsViewerWeb.PlotLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :plots, Plots.list_plots())}
+    {:ok,
+     socket
+     |> stream(:plots, Plots.list_plots())
+     |> stream(:csv_files, Plots.list_csv_files())}
   end
 
   @impl true

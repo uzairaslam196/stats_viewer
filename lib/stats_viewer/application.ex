@@ -5,6 +5,7 @@ defmodule StatsViewer.Application do
 
   use Application
 
+  alias StatsViewer.Workers.FetchDataSet
   @impl true
   def start(_type, _args) do
     children = [
@@ -17,13 +18,16 @@ defmodule StatsViewer.Application do
       # Start a worker by calling: StatsViewer.Worker.start_link(arg)
       # {StatsViewer.Worker, arg},
       # Start to serve requests, typically the last entry
-      StatsViewerWeb.Endpoint
+      StatsViewerWeb.Endpoint,
+      {Oban, Application.fetch_env!(:stats_viewer, Oban)}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: StatsViewer.Supervisor]
-    Supervisor.start_link(children, opts)
+    sup = Supervisor.start_link(children, opts)
+    schedule_worker()
+    sup
   end
 
   # Tell Phoenix to update the endpoint configuration
@@ -32,5 +36,10 @@ defmodule StatsViewer.Application do
   def config_change(changed, _new, removed) do
     StatsViewerWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp schedule_worker do
+    FetchDataSet.new(%{scheduled_at: DateTime.utc_now()})
+    |> Oban.insert!()
   end
 end

@@ -5,6 +5,8 @@ defmodule StatsViewerWeb.PlotLive.Show do
 
   @impl true
   def mount(_params, _session, socket) do
+
+
     {:ok, socket}
   end
 
@@ -18,4 +20,18 @@ defmodule StatsViewerWeb.PlotLive.Show do
 
   defp page_title(:show), do: "Show Plot"
   defp page_title(:edit), do: "Edit Plot"
+
+  def test do
+    HTTPoison.get(
+      "https://raw.githubusercontent.com/plotly/datasets/master/iris.csv",
+      [{"Range", "bytes=0-1023"}],
+      [timeout: 50_000, recv_timeout: 50_000]
+    )
+    |> elem(1)
+    |> Map.get(:body)
+    |> String.split("\n")
+    |> List.first()
+    |> String.split(",")
+    |> IO.inspect()
+  end
 end

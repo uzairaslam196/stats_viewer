@@ -19,4 +19,16 @@ defmodule StatsViewer.PlotsFixtures do
 
     plot
   end
+
+  @doc """
+  Generate a csv_file.
+  """
+  def csv_file_fixture(attrs \\ %{}) do
+    {:ok, csv_file} =
+      attrs
+      |> Enum.into(%{})
+      |> StatsViewer.Plots.create_csv_file()
+
+    csv_file
+  end
 end

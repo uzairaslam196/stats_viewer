@@ -65,4 +65,56 @@ defmodule StatsViewer.PlotsTest do
       assert %Ecto.Changeset{} = Plots.change_plot(plot)
     end
   end
+
+  describe "csv_files" do
+    alias StatsViewer.Plots.CSVFile
+
+    import StatsViewer.PlotsFixtures
+
+    @invalid_attrs %{}
+
+    test "list_csv_files/0 returns all csv_files" do
+      csv_file = csv_file_fixture()
+      assert Plots.list_csv_files() == [csv_file]
+    end
+
+    test "get_csv_file!/1 returns the csv_file with given id" do
+      csv_file = csv_file_fixture()
+      assert Plots.get_csv_file!(csv_file.id) == csv_file
+    end
+
+    test "create_csv_file/1 with valid data creates a csv_file" do
+      valid_attrs = %{}
+
+      assert {:ok, %CSVFile{} = csv_file} = Plots.create_csv_file(valid_attrs)
+    end
+
+    test "create_csv_file/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Plots.create_csv_file(@invalid_attrs)
+    end
+
+    test "update_csv_file/2 with valid data updates the csv_file" do
+      csv_file = csv_file_fixture()
+      update_attrs = %{}
+
+      assert {:ok, %CSVFile{} = csv_file} = Plots.update_csv_file(csv_file, update_attrs)
+    end
+
+    test "update_csv_file/2 with invalid data returns error changeset" do
+      csv_file = csv_file_fixture()
+      assert {:error, %Ecto.Changeset{}} = Plots.update_csv_file(csv_file, @invalid_attrs)
+      assert csv_file == Plots.get_csv_file!(csv_file.id)
+    end
+
+    test "delete_csv_file/1 deletes the csv_file" do
+      csv_file = csv_file_fixture()
+      assert {:ok, %CSVFile{}} = Plots.delete_csv_file(csv_file)
+      assert_raise Ecto.NoResultsError, fn -> Plots.get_csv_file!(csv_file.id) end
+    end
+
+    test "change_csv_file/1 returns a csv_file changeset" do
+      csv_file = csv_file_fixture()
+      assert %Ecto.Changeset{} = Plots.change_csv_file(csv_file)
+    end
+  end
 end

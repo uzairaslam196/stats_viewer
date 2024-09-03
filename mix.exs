@@ -53,6 +53,9 @@ defmodule StatsViewer.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
       {:oban, "~> 2.16"},
+      {:httpoison, "~> 2.2"},
+      {:poison, "~> 6.0"},
+      {:nimble_csv, "~> 1.2"}
     ]
   end
 

@@ -22,16 +22,13 @@ config :stats_viewer, StatsViewerWeb.Endpoint,
   pubsub_server: StatsViewer.PubSub,
   live_view: [signing_salt: "uTwJDViV"]
 
-  config :stats_viewer, Oban,
+config :stats_viewer, Oban,
   queues: [default: 10],
-  repo: StatsViewer.Repo
-
-  config :stats_viewer, Oban,
   repo: StatsViewer.Repo,
   plugins: [
     {Oban.Plugins.Cron,
      crontab: [
-      #  {"* * * * *", MyApp.MinuteWorker}
+       {"0 0 * * *", StatsViewer.Workers.FetchDataSet}
      ]}
   ]
 
