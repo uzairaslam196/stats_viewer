@@ -73,9 +73,11 @@ defmodule StatsViewerWeb.Router do
       live "/plots", PlotLive.Index, :index
       live "/plots/new", PlotLive.Index, :new
       live "/plots/:id/edit", PlotLive.Index, :edit
+      live "/plots/:id/share", PlotLive.Index, :share
 
       live "/plots/:id", PlotLive.Show, :show
       live "/plots/:id/show/edit", PlotLive.Show, :edit
+      live "/shared_plots", PlotLive.Shared, :index
     end
   end
 

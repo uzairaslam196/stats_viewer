@@ -5,9 +5,8 @@ defmodule StatsViewerWeb.PlotLive.CSVFiles do
   @impl true
   def mount(_params, _session, socket) do
     {:ok,
-    socket
-    |> stream(:csv_files, Plots.list_csv_files())
-  }
+     socket
+     |> stream(:csv_files, Plots.list_csv_files())}
   end
 
   @impl true
