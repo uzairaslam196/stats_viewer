@@ -22,6 +22,7 @@ defmodule StatsViewerWeb.PlotLive.FormComponent do
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:dataset]} type="text" label="Dataset" />
         <.input field={@form[:expression]} type="text" label="Expression" />
+        <.input field={@form[:user_id]} type="hidden" value={@current_user.id} />
         <:actions>
           <.button phx-disable-with="Saving...">Save Plot</.button>
         </:actions>
