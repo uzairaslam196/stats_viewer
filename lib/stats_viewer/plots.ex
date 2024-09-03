@@ -123,77 +123,12 @@ defmodule StatsViewer.Plots do
 
   ## Examples
 
-      iex> get_csv_file!(123)
+      iex> get_csv_file!(name)
       %CSVFile{}
 
-      iex> get_csv_file!(456)
+      iex> get_csv_file!(name)
       ** (Ecto.NoResultsError)
 
   """
-  def get_csv_file!(id), do: Repo.get!(CSVFile, id)
-
-  @doc """
-  Creates a csv_file.
-
-  ## Examples
-
-      iex> create_csv_file(%{field: value})
-      {:ok, %CSVFile{}}
-
-      iex> create_csv_file(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_csv_file(attrs \\ %{}) do
-    %CSVFile{}
-    |> CSVFile.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Updates a csv_file.
-
-  ## Examples
-
-      iex> update_csv_file(csv_file, %{field: new_value})
-      {:ok, %CSVFile{}}
-
-      iex> update_csv_file(csv_file, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_csv_file(%CSVFile{} = csv_file, attrs) do
-    csv_file
-    |> CSVFile.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a csv_file.
-
-  ## Examples
-
-      iex> delete_csv_file(csv_file)
-      {:ok, %CSVFile{}}
-
-      iex> delete_csv_file(csv_file)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_csv_file(%CSVFile{} = csv_file) do
-    Repo.delete(csv_file)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking csv_file changes.
-
-  ## Examples
-
-      iex> change_csv_file(csv_file)
-      %Ecto.Changeset{data: %CSVFile{}}
-
-  """
-  def change_csv_file(%CSVFile{} = csv_file, attrs \\ %{}) do
-    CSVFile.changeset(csv_file, attrs)
-  end
+  def get_csv_file_by_name!(name), do: Repo.get_by!(CSVFile, name: name)
 end
