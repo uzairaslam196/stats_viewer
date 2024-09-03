@@ -1,6 +1,7 @@
+<div class="px-4">
 <.header>
   Plot <%= @plot.name %>
-  <:subtitle>This is a histogram for <%= @plot.expression %></:subtitle>
+  <:subtitle>This is a histogram for <b><%= @plot.expression %></b> column</:subtitle>
 </.header>
 
 <.async_result :let={expression_result} assign={@expression_result}>
@@ -19,3 +20,4 @@
 </.async_result>
 
 <.back navigate={~p"/plots"}>Back to plots</.back>
+</div>

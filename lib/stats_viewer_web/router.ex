@@ -69,6 +69,7 @@ defmodule StatsViewerWeb.Router do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
 
+      live "/csv_files", PlotLive.CSVFiles, :index
       live "/plots", PlotLive.Index, :index
       live "/plots/new", PlotLive.Index, :new
       live "/plots/:id/edit", PlotLive.Index, :edit

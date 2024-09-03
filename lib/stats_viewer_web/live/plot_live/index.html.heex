@@ -1,26 +1,7 @@
 <div class="flex gap-4 h-screen w-full">
-  <div class="w-full p-8 border-x border-t">
-    <.header>
-      Listing Available CSVs On Source Repo
-    </.header>
-
-    <div class="h-screen overflow-y-auto">
-      <.table id="plots" rows={@streams.csv_files}>
-        <:col :let={{_id, csv_file}} label="CSV File Name"><%= csv_file.name %></:col>
-        <:col :let={{_id, csv_file}} label="Columns">
-          <%= Enum.join(csv_file.headers, ", ") %>
-        </:col>
-        <:action :let={{_id, plot}}>
-          <div class="sr-only">
-            <.link navigate={~p"/plots/#{plot}"}>Show</.link>
-          </div>
-        </:action>
-      </.table>
-    </div>
-  </div>
   <div class="w-full p-8 border">
     <.header>
-      Listing Your Plots
+      Your Plots
       <:actions>
         <.link patch={~p"/plots/new"}>
           <.button>New Plot</.button>

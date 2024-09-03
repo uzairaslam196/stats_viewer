@@ -82,7 +82,7 @@ defmodule StatsViewerWeb.PlotLive.Show do
     {:ok, @operators[operator].(left, right)}
   rescue
     _ ->
-      {:error, "could not parse values into valid type"}
+      {:error, "could not parse values into valid type, please check your expression"}
   end
 
   defp parse_value(value) when is_binary(value) do

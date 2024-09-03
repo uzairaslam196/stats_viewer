@@ -9,7 +9,7 @@ defmodule StatsViewerWeb.PlotLive.Index do
     {:ok,
      socket
      |> stream(:plots, Plots.list_plots())
-     |> stream(:csv_files, Plots.list_csv_files())}
+     }
   end
 
   @impl true

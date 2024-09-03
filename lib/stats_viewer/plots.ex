@@ -130,5 +130,9 @@ defmodule StatsViewer.Plots do
       ** (Ecto.NoResultsError)
 
   """
-  def get_csv_file_by_name!(name), do: Repo.get_by!(CSVFile, name: name)
+  def get_csv_file_by_name!(name) do
+    name = if String.contains?(name, ".csv"), do: name, else: name <> ".csv"
+
+    Repo.get_by!(CSVFile, name: name)
+  end
 end
