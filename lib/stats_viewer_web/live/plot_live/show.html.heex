@@ -1,23 +1,23 @@
 <div class="px-4">
-<.header>
-  Plot <%= @plot.name %>
-  <:subtitle>This is a histogram for <b><%= @plot.expression %></b> column</:subtitle>
-</.header>
+  <.header>
+    Plot <%= @plot.name %>
+    <:subtitle>This is a histogram for <b><%= @plot.expression %></b> column</:subtitle>
+  </.header>
 
-<.async_result :let={expression_result} assign={@expression_result}>
-  <:loading>
-    <div class="flex w-full h-full justify-center items-center transition my-5">
-      Loading...
-    </div>
-  </:loading>
-  <:failed :let={_reason}>There was an error loading the page.</:failed>
-  <%= case expression_result do %>
-    <% {:ok, values} -> %>
-      <div id="histogram1" phx-hook="Histogram" data-values={Jason.encode!(values)}></div>
-    <% {:error, error} -> %>
-      <div class="text-red-500">Error: <%= error %></div>
-  <% end %>
-</.async_result>
+  <.async_result :let={expression_result} assign={@expression_result}>
+    <:loading>
+      <div class="flex w-full h-full justify-center items-center transition my-5">
+        Loading...
+      </div>
+    </:loading>
+    <:failed :let={_reason}>There was an error loading the page.</:failed>
+    <%= case expression_result do %>
+      <% {:ok, values} -> %>
+        <div id="histogram1" phx-hook="Histogram" data-values={Jason.encode!(values)}></div>
+      <% {:error, error} -> %>
+        <div class="text-red-500">Error: <%= error %></div>
+    <% end %>
+  </.async_result>
 
-<.back navigate={~p"/plots"}>Back to plots</.back>
+  <.back navigate={~p"/plots"}>Back to plots</.back>
 </div>

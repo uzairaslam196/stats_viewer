@@ -6,7 +6,7 @@ defmodule StatsViewer.Plots do
   import Ecto.Query, warn: false
   alias StatsViewer.Repo
 
-  alias StatsViewer.Plots.Plot
+  alias StatsViewer.Plots.{Plot, PlotUser}
   alias StatsViewer.Plots.CSVFile
 
   @doc """
@@ -18,8 +18,8 @@ defmodule StatsViewer.Plots do
       [%Plot{}, ...]
 
   """
-  def list_plots do
-    Repo.all(Plot)
+  def list_plots(user_id) do
+    Repo.all(from p in Plot, where: p.user_id == ^user_id)
   end
 
   @doc """
@@ -101,6 +101,25 @@ defmodule StatsViewer.Plots do
   """
   def change_plot(%Plot{} = plot, attrs \\ %{}) do
     Plot.changeset(plot, attrs)
+  end
+
+  def create_plot_user(attrs \\ %{}) do
+    %PlotUser{}
+    |> PlotUser.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def change_plot_user(%PlotUser{} = plot, attrs \\ %{}) do
+    PlotUser.changeset(plot, attrs)
+  end
+
+  def get_shared_plots(user_id) do
+    from(p in Plot,
+      join: pu in PlotUser,
+      on: pu.plot_id == p.id and pu.user_id == ^user_id,
+      select: p
+    )
+    |> Repo.all()
   end
 
   @doc """

@@ -18,7 +18,7 @@
       <:col :let={{_id, plot}} label="Dataset"><%= plot.dataset %></:col>
       <:col :let={{_id, plot}} label="Expression"><%= plot.expression %></:col>
       <:action :let={{_id, plot}}>
-        <.link patch={~p"/plots/#{plot}/edit"}>Share</.link>
+        <.link patch={~p"/plots/#{plot}/share"}>Share</.link>
       </:action>
 
       <:action :let={{_id, plot}}>
@@ -49,6 +49,23 @@
         title={@page_title}
         action={@live_action}
         plot={@plot}
+        current_user={@current_user}
+        patch={~p"/plots"}
+      />
+    </.modal>
+    <.modal
+      :if={@live_action in [:share]}
+      id="plot-modal_share"
+      show
+      on_cancel={JS.patch(~p"/plots")}
+    >
+      <.live_component
+        module={StatsViewerWeb.PlotLive.ShareComponent}
+        id={@plot.id}
+        title={@page_title}
+        action={@live_action}
+        plot={@plot}
+        current_user={@current_user}
         patch={~p"/plots"}
       />
     </.modal>

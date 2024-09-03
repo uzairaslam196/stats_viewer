@@ -8,8 +8,7 @@ defmodule StatsViewerWeb.PlotLive.Index do
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> stream(:plots, Plots.list_plots())
-     }
+     |> stream(:plots, Plots.list_plots(socket.assigns.current_user.id))}
   end
 
   @impl true
@@ -20,6 +19,12 @@ defmodule StatsViewerWeb.PlotLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Plot")
+    |> assign(:plot, Plots.get_plot!(id))
+  end
+
+  defp apply_action(socket, :share, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Share Plot with other users")
     |> assign(:plot, Plots.get_plot!(id))
   end
 
