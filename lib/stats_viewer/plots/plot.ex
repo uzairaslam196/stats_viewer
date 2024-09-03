@@ -7,6 +7,13 @@ defmodule StatsViewer.Plots.Plot do
     field :dataset, :string
     field :expression, :string
 
+    # add user_id
+
+    # plot_users
+
+    # user_id
+    # plot_id
+
     timestamps(type: :utc_datetime)
   end
 

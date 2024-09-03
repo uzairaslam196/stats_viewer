@@ -18,6 +18,10 @@
       <:col :let={{_id, plot}} label="Dataset"><%= plot.dataset %></:col>
       <:col :let={{_id, plot}} label="Expression"><%= plot.expression %></:col>
       <:action :let={{_id, plot}}>
+        <.link patch={~p"/plots/#{plot}/edit"}>Share</.link>
+      </:action>
+
+      <:action :let={{_id, plot}}>
         <div class="sr-only">
           <.link navigate={~p"/plots/#{plot}"}>Show</.link>
         </div>
