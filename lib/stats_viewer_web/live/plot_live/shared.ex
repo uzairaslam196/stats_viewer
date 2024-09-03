@@ -2,7 +2,6 @@ defmodule StatsViewerWeb.PlotLive.Shared do
   use StatsViewerWeb, :live_view
 
   alias StatsViewer.Plots
-  alias StatsViewer.Plots.Plot
 
   @impl true
   def mount(_params, _session, socket) do

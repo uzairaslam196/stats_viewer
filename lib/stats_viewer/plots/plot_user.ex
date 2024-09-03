@@ -14,6 +14,6 @@ defmodule StatsViewer.Plots.PlotUser do
     plot
     |> cast(attrs, [:user_id, :plot_id])
     |> validate_required([:user_id, :plot_id])
-    |> unsafe_validate_unique([:user_id, :plot_id], StatsViewer.Repo)
+    |> unsafe_validate_unique([:user_id, :plot_id], StatsViewer.Repo, message: "Already shared with this user")
   end
 end

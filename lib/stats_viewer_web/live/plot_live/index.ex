@@ -16,16 +16,16 @@ defmodule StatsViewerWeb.PlotLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(%{assigns: %{current_user: user}} = socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Plot")
-    |> assign(:plot, Plots.get_plot!(id))
+    |> assign(:plot, Plots.get_plot_by!(user, id))
   end
 
-  defp apply_action(socket, :share, %{"id" => id}) do
+  defp apply_action(%{assigns: %{current_user: user}} = socket, :share, %{"id" => id}) do
     socket
     |> assign(:page_title, "Share Plot with other users")
-    |> assign(:plot, Plots.get_plot!(id))
+    |> assign(:plot, Plots.get_plot_by!(user, id))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -36,7 +36,6 @@ defmodule StatsViewerWeb.PlotLive.Index do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Plots")
     |> assign(:plot, nil)
   end
 
@@ -46,8 +45,8 @@ defmodule StatsViewerWeb.PlotLive.Index do
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    plot = Plots.get_plot!(id)
+  def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: user}} = socket) do
+    plot = Plots.get_plot_by!(user, id)
     {:ok, _} = Plots.delete_plot(plot)
 
     {:noreply, stream_delete(socket, :plots, plot)}

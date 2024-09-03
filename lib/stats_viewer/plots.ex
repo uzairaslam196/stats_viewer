@@ -36,7 +36,14 @@ defmodule StatsViewer.Plots do
       ** (Ecto.NoResultsError)
 
   """
-  def get_plot!(id), do: Repo.get!(Plot, id)
+  def get_plot_by!(user, id) do
+    Plot
+    |> join(:left, [p], pu in PlotUser, on: pu.plot_id == p.id)
+    |> where([_p, pu], pu.plot_id == ^id and pu.user_id == ^user.id)
+    |> or_where([p, _pu], p.id == ^id and p.user_id == ^user.id)
+    |> limit(1)
+    |> Repo.one!()
+  end
 
   @doc """
   Creates a plot.

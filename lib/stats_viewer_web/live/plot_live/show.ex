@@ -3,8 +3,8 @@ defmodule StatsViewerWeb.PlotLive.Show do
   alias StatsViewer.Plots
 
   @impl true
-  def mount(%{"id" => id}, _session, socket) do
-    plot = Plots.get_plot!(id)
+  def mount(%{"id" => id}, _session, %{assigns: %{current_user: user}} = socket) do
+    plot = Plots.get_plot_by!(user, id)
 
     {:ok,
      socket
